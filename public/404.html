@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Google AI Studio App</title>
+    <!-- Dynamic Web Manifest & Branding Selector based on URL context -->
+    <script>
+      (function() {
+        const isQueryAdmin = window.location.search.includes("admin=PURUSHOTAM_KR_20") || 
+                             window.location.search.includes("admin=admin");
+        
+        // Setup proper PWA manifest dynamically
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = isQueryAdmin ? '/manifest-admin.json' : '/manifest.json';
+        document.head.appendChild(link);
+
+        // Setup apple-touch-icon dynamically
+        const appleIcon = document.createElement('link');
+        appleIcon.rel = 'apple-touch-icon';
+        appleIcon.href = isQueryAdmin ? '/admin-logo.png' : '/user-logo.png';
+        document.head.appendChild(appleIcon);
+
+        // Setup apple meta title dynamically
+        const appleMeta = document.createElement('meta');
+        appleMeta.name = 'apple-mobile-web-app-title';
+        appleMeta.content = isQueryAdmin ? 'GT Admin' : 'GT Clash';
+        document.head.appendChild(appleMeta);
+
+        // Set page document title dynamically
+        document.title = isQueryAdmin ? "GT Clash Admin Control Panel" : "GT Clash Tournaments";
+      })();
+    </script>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Service Worker registration for PWA requirement -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js")
+            .then((reg) => console.log("PWA Service Worker registered:", reg.scope))
+            .catch((err) => console.error("PWA Service Worker failed:", err));
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

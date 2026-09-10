@@ -1,0 +1,93 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing authentication details, coin balance, and in-app notifications",
+      "type": "object",
+      "properties": {
+        "mobile": { "type": "string" },
+        "password": { "type": "string" },
+        "gmail": { "type": "string" },
+        "username": { "type": "string" },
+        "coins": { "type": "integer" },
+        "joinedAt": { "type": "integer" },
+        "notifications": { "type": "array" }
+      },
+      "required": ["mobile", "password", "coins", "joinedAt"]
+    },
+    "Game": {
+      "title": "Game",
+      "description": "A game box category containing its associated match listing and join allocations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "image": { "type": "string" },
+        "matches": { "type": "array" }
+      },
+      "required": [
+        "title",
+        "subtitle",
+        "image"
+      ]
+    },
+    "FinancialRequest": {
+      "title": "FinancialRequest",
+      "description": "User deposit and withdrawal transaction history request objects",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userMobile": { "type": "string" },
+        "username": { "type": "string" },
+        "amount": { "type": "integer" },
+        "type": { "type": "string" },
+        "status": { "type": "string" },
+        "timestamp": { "type": "integer" },
+        "utr": { "type": "string" }
+      },
+      "required": ["id", "userMobile", "username", "amount", "type", "status", "timestamp"]
+    },
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "UPI payment QR code and identifier settings",
+      "type": "object",
+      "properties": {
+        "qrCode": { "type": "string" },
+        "upiId": { "type": "string" }
+      },
+      "required": ["qrCode", "upiId"]
+    },
+    "EarnLinks": {
+      "title": "EarnLinks",
+      "description": "Social promotion resources and referral linkages",
+      "type": "object",
+      "properties": {
+        "links": { "type": "array" }
+      },
+      "required": ["links"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "Collection of all registered users keyed by their unique mobile numbers"
+    },
+    "games": {
+      "schema": "Game",
+      "description": "Collection of matches categorization and tournament configuration profiles"
+    },
+    "financialRequests": {
+      "schema": "FinancialRequest",
+      "description": "Complete registry of transaction deposits and withdrawal histories"
+    },
+    "settings/appSettings": {
+      "schema": "AppSettings",
+      "description": "Global parameters for standard payments and UPI linkages"
+    },
+    "settings/earnLinks": {
+      "schema": "EarnLinks",
+      "description": "List of dynamic channel earning profiles and links"
+    }
+  }
+}
